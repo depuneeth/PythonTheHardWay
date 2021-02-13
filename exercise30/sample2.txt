@@ -1,0 +1,5 @@
+>>> parsed args:  Namespace(files=['sample0.txt', 'sample1.txt'], numbers=False)
+Hi, This is Puneeth
+I am from Bangalore
+I completed my Bachelors in 2017 in ECE background
+Currently available in the job market for data analytics jobs.
