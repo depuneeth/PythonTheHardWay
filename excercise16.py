@@ -9,12 +9,12 @@ def sort_words(words):
 
 def print_first_word(words):
     """Prints the first word after popping it off."""
-    word = words.pop(0)
+    word = words.pop
     print(word)
 
 def print_last_word(words):
     """Prints the last word after popping it off."""
-    word = words.pop(-1)
+    word = words.pop
     print(word)
 
 def sort_sentence(sentence):

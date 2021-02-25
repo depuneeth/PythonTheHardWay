@@ -1,90 +1,109 @@
-from exercise35 import *
+class SingleLinkedListNode(object):
 
-def test_push():
-    colors = SingleLinkedList ()
-    colors.push("Pthalo Blue")
-    assert colors.count() == 1
-    colors.push("Ultramarine Blue")
-    assert colors.count() == 2
+    def __init__(self, value, nxt):
+        self.value = value
+        self.next = nxt
 
-def test_pop():
-    colors = SingleLinkedList()
-    colors.push("Magenta")
-    colors.push("Alizarin")
-    assert colors.pop() == "Alizarin"
-    assert colors.pop() == "Magenta"
-    assert colors.pop() == None
+    def __repr__(self):
+        nval = self.next and self.next.value or None
+        return f"[{self.value}]"
 
-def test_unshift():
-    colors = SingleLinkedList()
-    colors.push("Viridian")
-    colors.push("Sap Green")
-    colors.push("Van Dyke")
-    assert colors.unshift() == "Viridian"
-    assert colors.unshift() == "Sap Green"
-    assert colors.unshift() == "Van Dyke"
-    assert colors.unshift() == None
+class SingleLinkedList(object):
 
-def test_shift():
-    colors = SingleLinkedList()
-    colors.shift("Cadmium Orange")
-    assert colors.count() == 1
+    def __init__(self):
+        self.begin = None
+        self.end = None
 
-    colors.shift("Carbazole Violet")
-    assert colors.count() == 2
+    def push(self, obj):
+        """Appends a new value on the end of the list."""
+        node = SingleLinkedListNode(obj, None)
+        if self.begin == None:
+            self.begin = node
+            self.end = self.begin
+        else:
+            self.end.next = node
+            self.end = node
+        print("Its a push method"f'{self.begin},{self.end}')
+        self.print()
 
-    assert colors.pop() == "Cadmium Orange"
-    assert colors.count() == 1
-    assert colors.pop() == "Carbazole Violet"
-    assert colors.count() == 0
+    def pop(self):
+        """Removes the last item and returns it."""
+        if self.end == None:
+            return None
+        elif self.end == self.begin:
+            node = self.begin
+            self.end = self.begin = None
+            return node.value
+        else:
+            node = self.begin
+            while node.next != self.end:
+                node = node.next
+            # assert self.end != node
+            self.end = node
+            value = node.next.value
+            node.next = None
+            return value
 
-def test_remove():
-    colors = SingleLinkedList()
-    colors.push("Cobalt")
-    colors.push("Zinc White")
-    colors.push("Nickle Yellow")
-    colors.push("Perinone")
-    assert colors.remove("Cobalt") == 0
-    colors.dump("before perinone")
-    assert colors.remove("Perinone") == 2
-    colors.dump("after perinone")
-    assert colors.remove("Nickle Yellow") == 1
-    assert colors.remove("Zinc White") == 0
+    def shift(self, obj):
+        """Another name for push."""
+        node = SingleLinkedListNode(obj,None)
+        if self.end == None:
+            self.end = node
+            self.begin = self.end
+        else:
+            node.next = self.begin
+            self.begin = node
+        print("Its a Shift" f'{self.begin},{self.end}')
+        self.print()
 
-def test_first():
-    colors = SingleLinkedList ()
-    colors.push("Cadmium Red Light")
-    assert colors.first() == "Cadmium Red Light"
-    colors.push("Hansa Yellow")
-    assert colors.first() == "Cadmium Red Light"
-    colors.shift("Pthalo Green")
-    assert colors.first() == "Pthalo Green"
+    def print(self):
+        output = []
+        curr = self.begin
+        while curr:
+            output.append(curr.value)
+            curr = curr.next
+        print("The list is: ",output)
 
-def test_last ():
-    colors = SingleLinkedList()
-    colors.push("Cadmium Red Light")
-    assert colors.last() == "Cadmium Red Light"
-    colors.push("Hansa Yellow")
-    assert colors.last() == "Hansa Yellow"
-    colors.shift("Pthalo Green")
-    assert colors.last() == "Hansa Yellow"
 
-def test_get():
-    colors = SingleLinkedList ()
-    colors.push("Vermillion")
-    assert colors.get(0) == "Vermillion"
-    colors.push("Sap Green")
-    assert colors.get(0) == "Vermillion"
-    assert colors.get(1) == "Sap Green"
-    colors.push("Cadmium Yellow Light")
-    assert colors.get(0) == "Vermillion"
-    assert colors.get(1) == "Sap Green"
-    assert colors.get(2) == "Cadmium Yellow Light"
-    assert colors.pop() == "Cadmium Yellow Light"
-    assert colors.get(0) == "Vermillion"
-    assert colors.get(1) == "Sap Green"
-    assert colors.get(2) == None
-    colors.pop ()
-    assert colors.get(0) == "Vermillion"
-    colors.pop ()
-    assert colors.get(0) == None
+    def unshift(self):
+        """Removes the first item and returns it."""
+
+    def remove(self, obj):
+        """Finds a matching item and removes it from the list."""
+
+    def first(self):
+        """Returns a *reference* to the first item, does not remove."""
+        return self.begin
+
+    def last(self):
+        """Returns a reference to the last item, does not remove."""
+        return self.end
+
+    def count(self):
+        """Counts the number of elements in the list."""
+        node = self.begin
+        count = 0
+        while node:
+            count += 1
+            node = node.next
+        return count
+
+    def get(self, index):
+        """Get the value at index."""
+
+    def dump(self, mark):
+        """Debugging function that dumps the contents of the list."""
+
+colors = SingleLinkedList()
+colors.push('Blue')
+colors.push('Green')
+colors.push('Violet')
+colors.push('Purple')
+print("pop here: ",colors.pop())
+colors.print()
+colors.push('Orange')
+print(colors.count())
+print("the first element:",colors.first())
+print("the last element:",colors.last())
+colors.shift('Orange')
+colors.shift('Green')
