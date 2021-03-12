@@ -82,22 +82,21 @@ class SingleLinkedList(object):
         """Finds a matching item and removes it from the list."""
         #node = self.begin
         #while node:
-        print("check eq:",self.begin.value,obj)
+            #print("check eq:",self.begin.value,obj)
         if self.begin.value == obj:
             self.unshift()
         elif self.end.value == obj:
             self.pop()
         else:
-            print("sorry not removed")
             node = self.begin
-            print("check node eq:", node.value, obj)
+            # print("check node eq:", node.value, obj)
             while node.next.value != obj:
-                print(f'{node.value}')
+                # print(f'{node.value}')
                 node = node.next
 
-            print("current:",node.value)
+            # print("current:",node.value)
             node.next = node.next.next
-            self.Print()
+        self.Print()
 
 
 
@@ -120,9 +119,25 @@ class SingleLinkedList(object):
 
     def get(self, index):
         """Get the value at index."""
+        node = self.begin
+        i = 0
+        while node:
+            if i == index:
+                return node.value
+            else:
+                i += 1
+                node = node.next
+        return None
 
     def dump(self, mark):
         """Debugging function that dumps the contents of the list."""
+        node = self.begin
+        print(">>>> ",end="")
+        while node:
+            print(node, end="")
+            node = node.next
+        print()
+
 
 colors = SingleLinkedList()
 colors.push('Blue')
@@ -136,7 +151,11 @@ colors.push('Orange')
 # print("the first element:",colors.first())
 # print("the last element:",colors.last())
 colors.shift('Orange')
-#print("unshift here: ",colors.unshift())
-colors.shift('Green')
-colors.remove('Violet')
+print("unshift here: ",colors.unshift())
+
+# colors.shift('Green')
+# colors.remove('Purple')
+# print("Index value: ",colors.get(4))
+# colors.dump('Orange')
+colors.Print()
 
