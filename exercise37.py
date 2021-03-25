@@ -24,7 +24,7 @@ class SingleLinkedList(object):
             self.end.next = node
             self.end = node
         print("Its a push method"f'{self.begin},{self.end}')
-        self.print()
+        self.Print()
 
     def pop(self):
         """Removes the last item and returns it."""
@@ -54,9 +54,9 @@ class SingleLinkedList(object):
             node.next = self.begin
             self.begin = node
         print("Its a Shift" f'{self.begin},{self.end}')
-        self.print()
+        self.Print()
 
-    def print(self):
+    def Print(self):
         output = []
         curr = self.begin
         while curr:
@@ -67,9 +67,38 @@ class SingleLinkedList(object):
 
     def unshift(self):
         """Removes the first item and returns it."""
+        if self.begin == None:
+            return None
+        elif self.begin == self.end:
+            node = self.end
+            self.end = self.begin = None
+            return node.value
+        else:
+            node = self.begin
+            self.begin = node.next
+            return node.value
 
     def remove(self, obj):
         """Finds a matching item and removes it from the list."""
+        #node = self.begin
+        #while node:
+            #print("check eq:",self.begin.value,obj)
+        if self.begin.value == obj:
+            self.unshift()
+        elif self.end.value == obj:
+            self.pop()
+        else:
+            node = self.begin
+            # print("check node eq:", node.value, obj)
+            while node.next.value != obj:
+                # print(f'{node.value}')
+                node = node.next
+
+            # print("current:",node.value)
+            node.next = node.next.next
+        self.Print()
+
+
 
     def first(self):
         """Returns a *reference* to the first item, does not remove."""
@@ -90,20 +119,43 @@ class SingleLinkedList(object):
 
     def get(self, index):
         """Get the value at index."""
+        node = self.begin
+        i = 0
+        while node:
+            if i == index:
+                return node.value
+            else:
+                i += 1
+                node = node.next
+        return None
 
     def dump(self, mark):
         """Debugging function that dumps the contents of the list."""
+        node = self.begin
+        print(">>>> ",end="")
+        while node:
+            print(node, end="")
+            node = node.next
+        print()
+
 
 colors = SingleLinkedList()
 colors.push('Blue')
 colors.push('Green')
 colors.push('Violet')
 colors.push('Purple')
-print("pop here: ",colors.pop())
-colors.print()
+# print("pop here: ",colors.pop())
+# colors.Print()
 colors.push('Orange')
-print(colors.count())
-print("the first element:",colors.first())
-print("the last element:",colors.last())
+# print(colors.count())
+# print("the first element:",colors.first())
+# print("the last element:",colors.last())
 colors.shift('Orange')
-colors.shift('Green')
+print("unshift here: ",colors.unshift())
+
+# colors.shift('Green')
+# colors.remove('Purple')
+# print("Index value: ",colors.get(4))
+# colors.dump('Orange')
+colors.Print()
+

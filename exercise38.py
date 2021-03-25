@@ -22,6 +22,7 @@ class DoubleLinkedList(object):
         if self.end:
             # new node with prev=end
             node = DoubleLinkedListNode(obj, None, self.end)
+            #print("node is",node)
             # end.next = new node
             self.end.next = node
             # new end is node
@@ -30,6 +31,8 @@ class DoubleLinkedList(object):
         else:
             self.begin = DoubleLinkedListNode(obj, None, None)
             self.end = self.begin
+        print(f'{self.begin} - {self.end}')
+        self.pres_list()
 
     def pop(self):
         """Removes the last item and returns it."""
@@ -113,6 +116,7 @@ class DoubleLinkedList(object):
                 node = node.next
         # return -1 to indicate not there
         return -1
+        self.pres_list()
 
     def first(self):
         """Returns a *reference* to the first item, does not remove."""
@@ -167,3 +171,27 @@ class DoubleLinkedList(object):
         if self.begin:
             assert self.begin.prev == None, "begin.prev not None"
             assert self.end.next == None, "end.next not None"
+
+    def pres_list(self):
+        out = []
+        pres = self.begin
+        while pres:
+            out.append(pres.value)
+            pres = pres.next
+        print("the final list: ",out)
+
+colors = DoubleLinkedList()
+colors.push('Violet')
+colors.push('Indigo')
+colors.push('Blue')
+colors.push('Green')
+colors.push('Yellow')
+colors.push('Orange')
+colors.push('Red')
+print("the pop content:",colors.pop())
+colors.pres_list()
+colors.shift('Red')
+#colors.unshift()
+#colors.pres_list()
+#print("the unshifted value: ",colors.unshift())
+colors.remove('Yellow')
