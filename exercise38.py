@@ -172,6 +172,7 @@ class DoubleLinkedList(object):
             assert self.begin.prev == None, "begin.prev not None"
             assert self.end.next == None, "end.next not None"
 
+
     def pres_list(self):
         out = []
         pres = self.begin
